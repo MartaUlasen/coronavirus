@@ -1,0 +1,51 @@
+.card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    max-width: 480px;
+    margin: 0 auto 20px;
+    padding: 8px;
+    color: #0a123a;
+    background-color: #fff;
+}
+
+.title {
+    text-transform: uppercase;
+}
+
+.cases {
+    display: flex;
+}
+
+.case {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.amount {
+    display: flex;
+    align-items: center;
+    margin-right: 8px;
+    padding: 16px;
+    color: #fff;
+
+    &:last-child {
+        margin-right: 0;
+    }
+}
+
+.confirmed {
+    composes: amount;
+    background-color: #00a7e0;
+}
+
+.deaths {
+    composes: amount;
+    background-color: #d53f3f;
+}
+
+.recovered {
+    composes: amount;
+    background-color: #b5bd36;
+}
