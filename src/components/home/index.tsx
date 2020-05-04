@@ -1,42 +1,47 @@
 import React, { FunctionComponent, useEffect } from 'react';
 import { connect, ResolveThunks } from 'react-redux';
-import { thunks, ICaseListState } from 'store/caseList';
+import { thunks, ITotalCasesState } from 'store/totalCases';
 import { IRootState } from 'store';
-import CaseList from 'components/caseList';
+import TotalCases from 'components/totalCases';
 
-type IProps = ICaseListState & Pick<ResolveThunks<typeof thunks>, 'fetchAllCases'>;
+import CountriesCaseListTable from 'components/countriesCaseListTable';
+
+type IProps = ITotalCasesState & Pick<ResolveThunks<typeof thunks>, 'fetchTotalCases'>;
 
 const Home: FunctionComponent<IProps> = ({
     isLoading,
     error,
     data,
-    fetchAllCases,
+    fetchTotalCases,
 }) => {
     useEffect(() => {
-        fetchAllCases();
-    }, [fetchAllCases]);
+        fetchTotalCases();
+    }, [fetchTotalCases]);
 
-    const renderHome = () => {
-        if (isLoading) return 'LOADING';
-        if (data) return <CaseList />;
-        if (error) return <span>{error}</span>;
-        return null;
-    };
     return (
         <div>
-            {renderHome()}
+            {isLoading ? 'LOADING' : null}
+            {data
+                ? (
+                    <>
+                        <TotalCases />
+                        <CountriesCaseListTable />
+                    </>
+                )
+                : null}
+            {error ? { error } : null}
         </div>
     );
 };
 
-const mapStateToProps = ({ allCases }: IRootState) => ({
-    isLoading: allCases.isLoading,
-    data: allCases.data,
-    error: allCases.error,
+const mapStateToProps = ({ totalCases }: IRootState) => ({
+    isLoading: totalCases.isLoading,
+    data: totalCases.data,
+    error: totalCases.error,
 });
 
 const mapDispatchToProps = {
-    fetchAllCases: thunks.fetchAllCases,
+    fetchTotalCases: thunks.fetchTotalCases,
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);

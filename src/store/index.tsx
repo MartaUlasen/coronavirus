@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux';
 import { configureStore } from '@reduxjs/toolkit';
-import { allCasesModule } from './caseList';
+import { totalCasesModule } from './totalCases';
+import { countriesCaseListModule } from './countriesCaseList';
 
 const rootReducer = combineReducers({
-    allCases: allCasesModule.reducer,
+    totalCases: totalCasesModule.reducer,
+    countriesCaseList: countriesCaseListModule.reducer,
 });
 
 const store = configureStore({

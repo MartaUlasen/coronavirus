@@ -1,12 +1,12 @@
 import React, { FunctionComponent } from 'react';
 import { IRootState } from 'store';
-import { ICaseListState } from 'store/caseList';
+import { ITotalCasesState } from 'store/totalCases';
 import { connect } from 'react-redux';
 import styles from './index.module.scss';
 
-type IProps = ICaseListState;
+type IProps = ITotalCasesState;
 
-const CaseList: FunctionComponent<IProps> = ({ data = {} }) => {
+const TotalCases: FunctionComponent<IProps> = ({ data = {} }) => {
     const {
         cases,
         deaths,
@@ -50,10 +50,10 @@ const CaseList: FunctionComponent<IProps> = ({ data = {} }) => {
     );
 };
 
-const mapStateToProps = ({ allCases }: IRootState) => ({
-    isLoading: allCases.isLoading,
-    data: allCases.data,
-    error: allCases.error,
+const mapStateToProps = ({ totalCases }: IRootState) => ({
+    isLoading: totalCases.isLoading,
+    data: totalCases.data,
+    error: totalCases.error,
 });
 
-export default connect(mapStateToProps)(CaseList);
+export default connect(mapStateToProps)(TotalCases);
