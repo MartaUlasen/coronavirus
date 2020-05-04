@@ -1,10 +1,10 @@
 import React, { FunctionComponent, useEffect } from 'react';
 import { connect, ResolveThunks } from 'react-redux';
-import { thunks, IAllCasesState } from 'store/allCases';
+import { thunks, ICaseListState } from 'store/caseList';
 import { IRootState } from 'store';
-import TotalCases from 'components/totalCases';
+import CaseList from 'components/caseList';
 
-type IProps = IAllCasesState & Pick<ResolveThunks<typeof thunks>, 'fetchAllCases'>;
+type IProps = ICaseListState & Pick<ResolveThunks<typeof thunks>, 'fetchAllCases'>;
 
 const Home: FunctionComponent<IProps> = ({
     isLoading,
@@ -18,7 +18,7 @@ const Home: FunctionComponent<IProps> = ({
 
     const renderHome = () => {
         if (isLoading) return 'LOADING';
-        if (data) return <TotalCases />;
+        if (data) return <CaseList />;
         if (error) return <span>{error}</span>;
         return null;
     };

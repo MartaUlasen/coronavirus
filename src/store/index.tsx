@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { configureStore } from '@reduxjs/toolkit';
-import { allCasesModule } from './allCases';
+import { allCasesModule } from './caseList';
 
 const rootReducer = combineReducers({
     allCases: allCasesModule.reducer,

@@ -1,23 +1,18 @@
 import React, { FunctionComponent } from 'react';
 import { IRootState } from 'store';
-import { IAllCasesState } from 'store/allCases';
+import { ICaseListState } from 'store/caseList';
 import { connect } from 'react-redux';
 import styles from './index.module.scss';
 
-type IProps = IAllCasesState;
+type IProps = ICaseListState;
 
-const TotalCases: FunctionComponent<IProps> = ({
-    data = { Global: {} },
-}) => {
+const CaseList: FunctionComponent<IProps> = ({ data = {} }) => {
     const {
-        Global: {
-            NewConfirmed,
-            TotalConfirmed,
-            NewDeaths,
-            TotalDeaths,
-            NewRecovered,
-            TotalRecovered,
-        },
+        cases,
+        deaths,
+        recovered,
+        todayCases,
+        todayDeaths,
     } = data;
 
     return (
@@ -26,31 +21,27 @@ const TotalCases: FunctionComponent<IProps> = ({
             <div className={styles.cases}>
                 <div className={styles.case}>
                     <div className={styles.confirmed}>
-                        {TotalConfirmed}
+                        {cases}
                         (+
                         {' '}
-                        {NewConfirmed}
+                        {todayCases}
                         )
                     </div>
                     <span>Total cases</span>
                 </div>
                 <div className={styles.case}>
                     <div className={styles.deaths}>
-                        {TotalDeaths}
+                        {deaths}
                         (+
                         {' '}
-                        {NewDeaths}
+                        {todayDeaths}
                         )
                     </div>
                     <span>Total death</span>
                 </div>
                 <div className={styles.case}>
                     <div className={styles.recovered}>
-                        {TotalRecovered}
-                        (+
-                        {' '}
-                        {NewRecovered}
-                        )
+                        {recovered}
                     </div>
                     <span>Total recovered</span>
                 </div>
@@ -65,4 +56,4 @@ const mapStateToProps = ({ allCases }: IRootState) => ({
     error: allCases.error,
 });
 
-export default connect(mapStateToProps)(TotalCases);
+export default connect(mapStateToProps)(CaseList);

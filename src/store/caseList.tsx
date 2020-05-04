@@ -15,28 +15,29 @@ interface ICountry {
     Date: string
 }
 
-export interface IGlobal {
-    NewConfirmed: number,
-    TotalConfirmed: number,
-    NewDeaths: number,
-    TotalDeaths: number,
-    NewRecovered: number,
-    TotalRecovered: number
+interface ICaseList {
+    active: number;
+    affectedCountries: number;
+    cases: number;
+    casesPerOneMillion: number;
+    critical: number;
+    deaths: number;
+    deathsPerOneMillion: number;
+    recovered: number;
+    tests: number;
+    testsPerOneMillion: number;
+    todayCases: number;
+    todayDeaths: number;
+    updated: number;
 }
 
-interface IAllCasesList {
-    Global: IGlobal;
-    Countries: ICountry[];
-    Date: string;
-}
-
-export type IAllCasesState = {
+export type ICaseListState = {
     isLoading: boolean;
-    data?: IAllCasesList;
+    data?: ICaseList;
     error?: string;
 };
 
-export const initialState: IAllCasesState = {
+export const initialState: ICaseListState = {
     isLoading: false,
     data: undefined,
     error: undefined,
@@ -49,7 +50,7 @@ export const allCasesModule = createSlice({
         requestAllCases: (state) => {
             state.isLoading = true;
         },
-        requestAllCasesSuccess: (state, action: PayloadAction<IAllCasesList>) => {
+        requestAllCasesSuccess: (state, action: PayloadAction<ICaseList>) => {
             state.isLoading = false;
             state.data = action.payload;
         },
@@ -64,11 +65,16 @@ const { actions, reducer } = allCasesModule;
 
 const fetchAllCases = () => (dispatch: IRootDispatch) => {
     dispatch(actions.requestAllCases());
-    return httpService.get('summary')
+    /* return httpService.get('summary')
         .then((response) => {
             dispatch(actions.requestAllCasesSuccess(response.data));
         })
-        .catch((error) => dispatch(actions.requestAllCasesError(error)));
+        .catch((error) => dispatch(actions.requestAllCasesError(error))); */
+    return httpService.get('all')
+        .then((response) => {
+            dispatch(actions.requestAllCasesSuccess(response.data));
+        })
+        .catch((error) => dispatch(actions.requestAllCasesError(error.toString())));
 };
 
 export const thunks = {
