@@ -5,8 +5,8 @@
     max-width: 480px;
     margin: 0 auto 20px;
     padding: 8px;
-    color: #0a123a;
-    background-color: #fff;
+    color: $primary-color;
+    background-color: $light-color;
 }
 
 .title {
@@ -28,7 +28,7 @@
     align-items: center;
     margin-right: 8px;
     padding: 16px;
-    color: #fff;
+    color: $light-color;
 
     &:last-child {
         margin-right: 0;
