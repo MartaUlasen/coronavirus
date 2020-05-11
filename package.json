@@ -10,8 +10,8 @@
     "test:coverage": "jest --coverage",
     "eslint": "npx eslint --ext .js,.jsx,.ts,.tsx ./src",
     "eslint:fix": "npx eslint --ext .js,.jsx,.ts,.tsx ./src --fix",
-    "stylelint": "npx stylelint './src/**/*.scss'",
-    "stylelint:fix": "npx stylelint './src/**/*.scss' --fix",
+    "stylelint": "npx stylelint ./src/**/*.scss",
+    "stylelint:fix": "npx stylelint ./src/**/*.scss --fix",
     "lint": "npm run eslint && npm run stylelint"
   },
   "dependencies": {
