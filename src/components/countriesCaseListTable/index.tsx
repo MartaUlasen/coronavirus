@@ -3,6 +3,9 @@ import { connect, ResolveThunks } from 'react-redux';
 import { thunks, ICountriesCaseListState } from 'store/countriesCaseList';
 import { IRootState } from 'store';
 import Table from './table';
+import styles from './index.module.scss';
+
+const { tdAlignRight, tdAlignCenter } = styles;
 
 type IProps = ICountriesCaseListState & ResolveThunks<Pick<typeof thunks, 'fetchCountriesCaseList'>>;
 
@@ -10,6 +13,7 @@ const columns = [
     {
         Header: 'Country',
         accessor: 'country',
+        className: tdAlignCenter,
     },
     {
         Header: 'Cases',
@@ -17,14 +21,17 @@ const columns = [
             {
                 Header: 'Total cases',
                 accessor: 'cases',
+                className: tdAlignRight,
             },
             {
                 Header: 'New cases',
                 accessor: 'todayCases',
+                className: tdAlignRight,
             },
             {
                 Header: 'Cases Per One Million',
                 accessor: 'casesPerOneMillion',
+                className: tdAlignRight,
             },
         ],
     },
@@ -34,20 +41,24 @@ const columns = [
             {
                 Header: 'Total deaths',
                 accessor: 'deaths',
+                className: tdAlignRight,
             },
             {
                 Header: 'New deaths',
                 accessor: 'todayDeaths',
+                className: tdAlignRight,
             },
             {
                 Header: 'Deaths Per One Million',
                 accessor: 'deathsPerOneMillion',
+                className: tdAlignRight,
             },
         ],
     },
     {
         Header: 'Total recovered',
         accessor: 'recovered',
+        className: tdAlignRight,
     },
 ];
 
@@ -62,9 +73,9 @@ const CountriesCaseListTable: FunctionComponent<IProps> = ({
     }, [fetchCountriesCaseList]);
 
     return (
-        <div>
+        <div className={styles.caseList}>
             {isLoading && 'LOADING'}
-            {data && <Table columns={columns} data={data} />}
+            {data && <Table data={data} columns={columns} />}
             {error}
         </div>
     );

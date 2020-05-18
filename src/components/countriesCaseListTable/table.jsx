@@ -1,39 +1,48 @@
 import React from 'react';
-import { useTable, useSortBy } from 'react-table';
+import {
+    useTable,
+    useFlexLayout,
+    useSortBy,
+} from 'react-table';
 import { grey, indigo } from '@material-ui/core/colors';
 import SwapVertIcon from '@material-ui/icons/SwapVert';
 import styles from './index.module.scss';
 
+const Table = ({ data, columns }) => {
+    const defaultColumn = () => ({
+        minWidth: 30,
+        width: 100,
+        maxWidth: 200,
+    });
 
-const Table = ({ columns, data }) => {
     const {
-        getTableProps,
-        getTableBodyProps,
-        headerGroups,
-        rows,
-        prepareRow,
+        getTableProps, getTableBodyProps, headerGroups, rows, prepareRow,
     } = useTable(
         {
             columns,
             data,
+            defaultColumn,
         },
+        useFlexLayout,
         useSortBy,
     );
 
     return (
-        <div className={styles.tableContainer}>
-            <h3 className={styles.title}>Current status of confirmed cases for each country</h3>
-            <table {...getTableProps()} className={styles.table}>
-                <thead>
+        <div className={styles.tableWrapper}>
+            <div {...getTableProps()} className={styles.table}>
+                <div>
                     {headerGroups.map((headerGroup) => (
-                        <tr {...headerGroup.getHeaderGroupProps()} className={styles.tr}>
+                        <div
+                            {...headerGroup.getHeaderGroupProps({
+                                style: { paddingRight: '17px' },
+                            })}
+                            className={styles.tr}
+                        >
                             {headerGroup.headers.map((column) => (
-                                <th
-                                    {
-                                        ...column.getHeaderProps(column.getSortByToggleProps())}
+                                <div
+                                    {...column.getHeaderProps(column.getSortByToggleProps())}
                                     className={styles.th}
                                 >
-
                                     {column.render('Header')}
                                     {column.canSort
                                         ? column.isSorted
@@ -63,26 +72,30 @@ const Table = ({ columns, data }) => {
                                                 />
                                             )
                                         : ''}
-                                </th>
+
+                                </div>
                             ))}
-                        </tr>
+                        </div>
                     ))}
-                </thead>
-                <tbody {...getTableBodyProps()} className={styles.tbody}>
-                    {rows.map(
-                        (row, i) => {
-                            prepareRow(row);
-                            return (
-                                <tr {...row.getRowProps()} className={styles.tr}>
-                                    {row.cells.map((cell) => (
-                                        <td {...cell.getCellProps()} className={styles.td}>{cell.render('Cell')}</td>
-                                    ))}
-                                </tr>
-                            );
-                        },
-                    )}
-                </tbody>
-            </table>
+                </div>
+                <div {...getTableBodyProps()} className={styles.tbody}>
+                    {rows.map((row) => {
+                        prepareRow(row);
+                        return (
+                            <div {...row.getRowProps()} className={styles.tr}>
+                                {row.cells.map((cell) => (
+                                    <div
+                                        {...cell.getCellProps()}
+                                        className={cell.column.className}
+                                    >
+                                        {cell.render('Cell')}
+                                    </div>
+                                ))}
+                            </div>
+                        );
+                    })}
+                </div>
+            </div>
         </div>
     );
 };

@@ -5,6 +5,7 @@ import { IRootState } from 'store';
 import TotalCases from 'components/totalCases';
 
 import CountriesCaseListTable from 'components/countriesCaseListTable';
+import styles from './index.module.scss';
 
 type IProps = ITotalCasesState & Pick<ResolveThunks<typeof thunks>, 'fetchTotalCases'>;
 
@@ -19,7 +20,7 @@ const Home: FunctionComponent<IProps> = ({
     }, [fetchTotalCases]);
 
     return (
-        <div>
+        <div className={styles.home}>
             {isLoading ? 'LOADING' : null}
             {data
                 ? (

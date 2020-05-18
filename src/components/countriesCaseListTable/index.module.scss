@@ -1,5 +1,11 @@
+.case-list {
+    text-align: center;
+}
+
 .table-container {
+    display: block;
     margin: 40px auto 0;
+    overflow: auto;
 }
 
 .title {
@@ -7,12 +13,29 @@
     text-transform: uppercase;
 }
 
+.table-wrapper {
+    display: block;
+    margin: 0 auto;
+    overflow: auto;
+}
+
 .table {
     margin: 0 auto;
     color: $primary-color;
     background: $light-color;
-    border: 1px solid $primary-color;
+    border-bottom: 1px solid $primary-color;
     border-spacing: 0;
+}
+
+.thead {
+    overflow-x: auto;
+    overflow-y: auto;
+}
+
+.tbody {
+    height: 400px;
+    overflow-x: hidden;
+    overflow-y: scroll;
 }
 
 .tr:last-chil {
@@ -21,14 +44,33 @@
     }
 }
 
+.th {
+    text-transform: uppercase;
+}
+
 .th,
 .td {
+    position: relative;
     margin: 0;
     padding: 0.5rem;
     border-right: 1px solid $primary-color;
     border-bottom: 1px solid $primary-color;
+}
+
+.th {
+    text-align: center;
 
     &:last-child {
-        border-right: 0;
+        border-right: 1px solid transparent;
     }
+}
+
+.td-align-right {
+    composes: td;
+    text-align: right;
+}
+
+.td-align-center {
+    composes: td;
+    text-align: center;
 }
