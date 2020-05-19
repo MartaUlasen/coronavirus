@@ -4,7 +4,6 @@ import {
     useFlexLayout,
     useSortBy,
 } from 'react-table';
-import { grey, indigo } from '@material-ui/core/colors';
 import SwapVertIcon from '@material-ui/icons/SwapVert';
 import styles from './index.module.scss';
 
@@ -34,7 +33,6 @@ const Table = ({ data, columns }) => {
                     {headerGroups.map((headerGroup) => (
                         <div
                             {...headerGroup.getHeaderGroupProps({
-                                style: { paddingRight: '17px' },
                             })}
                             className={styles.tr}
                         >
@@ -43,35 +41,35 @@ const Table = ({ data, columns }) => {
                                     {...column.getHeaderProps(column.getSortByToggleProps())}
                                     className={styles.th}
                                 >
-                                    {column.render('Header')}
-                                    {column.canSort
-                                        ? column.isSorted
-                                            ? column.isSortedDesc
-                                                ? (
-                                                    <SwapVertIcon
-                                                        style={{
-                                                            color: indigo[900],
-                                                            fontSize: 'small',
-                                                        }}
-                                                    />
-                                                )
+                                    <span>
+                                        {column.render('Header')}
+                                        {column.canSort
+                                            ? column.isSorted
+                                                ? column.isSortedDesc
+                                                    ? (
+                                                        <SwapVertIcon
+                                                            style={{
+                                                                fontSize: 'medium',
+                                                            }}
+                                                        />
+                                                    )
+                                                    : (
+                                                        <SwapVertIcon
+                                                            style={{
+                                                                fontSize: 'medium',
+                                                            }}
+                                                        />
+                                                    )
                                                 : (
                                                     <SwapVertIcon
                                                         style={{
-                                                            color: indigo[900],
                                                             fontSize: 'small',
                                                         }}
                                                     />
                                                 )
-                                            : (
-                                                <SwapVertIcon
-                                                    style={{
-                                                        color: grey[400],
-                                                        fontSize: 'small',
-                                                    }}
-                                                />
-                                            )
-                                        : ''}
+                                            : ''}
+
+                                    </span>
 
                                 </div>
                             ))}

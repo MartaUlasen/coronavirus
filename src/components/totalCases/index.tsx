@@ -2,6 +2,7 @@ import React, { FunctionComponent } from 'react';
 import { IRootState } from 'store';
 import { ITotalCasesState } from 'store/totalCases';
 import { connect } from 'react-redux';
+import { formatNumber } from 'utils';
 import styles from './index.module.scss';
 
 type IProps = ITotalCasesState;
@@ -21,27 +22,25 @@ const TotalCases: FunctionComponent<IProps> = ({ data = {} }) => {
             <div className={styles.cases}>
                 <div className={styles.case}>
                     <div className={styles.confirmed}>
-                        {cases}
+                        {cases && formatNumber(cases)}
                         (+
-                        {' '}
-                        {todayCases}
+                        {todayCases && formatNumber(todayCases)}
                         )
                     </div>
                     <span>Total cases</span>
                 </div>
                 <div className={styles.case}>
                     <div className={styles.deaths}>
-                        {deaths}
+                        {deaths && formatNumber(deaths)}
                         (+
-                        {' '}
-                        {todayDeaths}
+                        {todayDeaths && formatNumber(todayDeaths)}
                         )
                     </div>
                     <span>Total death</span>
                 </div>
                 <div className={styles.case}>
                     <div className={styles.recovered}>
-                        {recovered}
+                        {recovered && formatNumber(recovered)}
                     </div>
                     <span>Total recovered</span>
                 </div>

@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import httpService from 'services';
 import { IRootDispatch } from './index';
 
-interface ICountry {
+export interface ICountry {
     updated: number;
     country: string;
     countryInfo: {};

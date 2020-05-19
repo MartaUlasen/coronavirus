@@ -2,7 +2,6 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 480px;
     margin: 0 auto 20px;
     padding: 8px;
     color: $primary-color;
@@ -29,6 +28,7 @@
     margin-right: 8px;
     padding: 16px;
     color: $light-color;
+    font-weight: 600;
 
     &:last-child {
         margin-right: 0;
