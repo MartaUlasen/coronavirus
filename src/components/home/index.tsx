@@ -1,4 +1,4 @@
-import React, { FunctionComponent, useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 import { connect, ResolveThunks } from 'react-redux';
 import { thunks, ITotalCasesState } from 'store/totalCases';
 import { IRootState } from 'store';
@@ -9,7 +9,7 @@ import styles from './index.module.scss';
 
 type IProps = ITotalCasesState & Pick<ResolveThunks<typeof thunks>, 'fetchTotalCases'>;
 
-const Home: FunctionComponent<IProps> = ({
+const Home: FC<IProps> = ({
     isLoading,
     error,
     data,

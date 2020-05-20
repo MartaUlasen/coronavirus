@@ -1,8 +1,9 @@
-import React, { FunctionComponent, useEffect } from 'react';
+import React, { FC, useEffect } from 'react';
 import { connect, ResolveThunks } from 'react-redux';
 import { thunks, ICountriesCaseListState, ICountry } from 'store/countriesCaseList';
 import { IRootState } from 'store';
 import { formatNumber } from 'utils';
+import { Column } from 'react-table';
 import Table from './table';
 import styles from './index.module.scss';
 
@@ -10,30 +11,46 @@ import styles from './index.module.scss';
 const { tdAlignRight, tdAlignLeft } = styles;
 
 type IProps = ICountriesCaseListState & ResolveThunks<Pick<typeof thunks, 'fetchCountriesCaseList'>>;
+type IFormatedNumberProps = {
+    value: number,
+    className: string,
+};
+type ICountryNameProps = {
+    value: string,
+    className: string,
+};
 
-const columns = [
+const FormattedNumber: FC<IFormatedNumberProps> = (
+    { value, className },
+) => <div className={className}>{formatNumber(value)}</div>;
+const CountryName: FC<ICountryNameProps> = (
+    { value, className },
+) => <div className={className}>{value}</div>;
+
+const columns: Column<ICountry>[] = [
     {
         Header: 'Country',
         accessor: 'country',
-        className: tdAlignLeft,
+        Cell: ({ value }) => <CountryName value={value} className={tdAlignLeft} />,
+        // className: tdAlignLeft,
     },
     {
         Header: 'Cases',
         columns: [
             {
                 Header: 'Total cases',
-                accessor: (row: ICountry) => formatNumber(row.cases),
-                className: tdAlignRight,
+                accessor: 'cases',
+                Cell: ({ value }) => <FormattedNumber value={value} className={tdAlignRight} />,
             },
             {
                 Header: 'New cases',
-                accessor: (row: ICountry) => formatNumber(row.todayCases),
-                className: tdAlignRight,
+                accessor: 'todayCases',
+                Cell: ({ value }) => <FormattedNumber value={value} className={tdAlignRight} />,
             },
             {
                 Header: 'Cases Per One Million',
-                accessor: (row: ICountry) => formatNumber(row.casesPerOneMillion),
-                className: tdAlignRight,
+                accessor: 'casesPerOneMillion',
+                Cell: ({ value }) => <FormattedNumber value={value} className={tdAlignRight} />,
             },
         ],
     },
@@ -42,29 +59,29 @@ const columns = [
         columns: [
             {
                 Header: 'Total deaths',
-                accessor: (row: ICountry) => formatNumber(row.deaths),
-                className: tdAlignRight,
+                accessor: 'deaths',
+                Cell: ({ value }) => <FormattedNumber value={value} className={tdAlignRight} />,
             },
             {
                 Header: 'New deaths',
-                accessor: (row: ICountry) => formatNumber(row.todayDeaths),
-                className: tdAlignRight,
+                accessor: 'todayDeaths',
+                Cell: ({ value }) => <FormattedNumber value={value} className={tdAlignRight} />,
             },
             {
                 Header: 'Deaths Per One Million',
-                accessor: (row: ICountry) => formatNumber(row.deathsPerOneMillion),
-                className: tdAlignRight,
+                accessor: 'deathsPerOneMillion',
+                Cell: ({ value }) => <FormattedNumber value={value} className={tdAlignRight} />,
             },
         ],
     },
     {
         Header: 'Total recovered',
-        accessor: (row: ICountry) => formatNumber(row.recovered),
-        className: tdAlignRight,
+        accessor: 'recovered',
+        Cell: ({ value }) => <FormattedNumber value={value} className={tdAlignRight} />,
     },
 ];
 
-const CountriesCaseListTable: FunctionComponent<IProps> = ({
+const CountriesCaseListTable: FC<IProps> = ({
     isLoading,
     error,
     data,

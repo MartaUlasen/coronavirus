@@ -90,10 +90,14 @@
 
 .td-align-right {
     composes: td;
-    text-align: right;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    height: 100%;    
 }
 
 .td-align-left {
     composes: td;
+    height: 100%;
     text-align: left;
 }

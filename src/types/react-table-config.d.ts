@@ -100,7 +100,8 @@ import {
         UseGlobalFiltersColumnOptions<D>,
         UseGroupByColumnOptions<D>,
         UseResizeColumnsColumnOptions<D>,
-        UseSortByColumnOptions<D> {}
+        UseSortByColumnOptions<D>
+        { className?: string }
   
     export interface ColumnInstance<D extends object = {}>
       extends UseFiltersColumnProps<D>,
