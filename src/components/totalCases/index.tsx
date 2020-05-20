@@ -20,28 +20,22 @@ const TotalCases: FunctionComponent<IProps> = ({ data = {} }) => {
         <div className={styles.card}>
             <h3 className={styles.title}>Current status of confirmed cases</h3>
             <div className={styles.cases}>
-                <div className={styles.case}>
-                    <div className={styles.confirmed}>
-                        {cases && formatNumber(cases)}
-                        (+
-                        {todayCases && formatNumber(todayCases)}
-                        )
-                    </div>
+                <div className={styles.confirmedCases}>
+                    {cases && `${formatNumber(cases)} `}
+                    (+
+                    {todayCases && formatNumber(todayCases)}
+                    )
                     <span>Total cases</span>
                 </div>
-                <div className={styles.case}>
-                    <div className={styles.deaths}>
-                        {deaths && formatNumber(deaths)}
-                        (+
-                        {todayDeaths && formatNumber(todayDeaths)}
-                        )
-                    </div>
-                    <span>Total death</span>
+                <div className={styles.deathsCases}>
+                    {deaths && `${formatNumber(deaths)} `}
+                    (+
+                    {todayDeaths && formatNumber(todayDeaths)}
+                    )
+                    <span>Total deaths</span>
                 </div>
-                <div className={styles.case}>
-                    <div className={styles.recovered}>
-                        {recovered && formatNumber(recovered)}
-                    </div>
+                <div className={styles.recoveredCases}>
+                    {recovered && formatNumber(recovered)}
                     <span>Total recovered</span>
                 </div>
             </div>

@@ -14,18 +14,14 @@
 
 .cases {
     display: flex;
+    margin-bottom: 1em;
 }
 
 .case {
     display: flex;
     flex-direction: column;
     align-items: center;
-}
-
-.amount {
-    display: flex;
-    align-items: center;
-    margin-right: 8px;
+    margin-right: 12px;
     padding: 16px;
     color: $light-color;
     font-weight: 600;
@@ -35,17 +31,17 @@
     }
 }
 
-.confirmed {
-    composes: amount;
+.confirmed-cases {
+    composes: case;
     background-color: #00a7e0;
 }
 
-.deaths {
-    composes: amount;
+.deaths-cases {
+    composes: case;
     background-color: #d53f3f;
 }
 
-.recovered {
-    composes: amount;
+.recovered-cases {
+    composes: case;
     background-color: #b5bd36;
 }
