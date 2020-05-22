@@ -3,20 +3,27 @@ import {
     useTable,
     useFlexLayout,
     useSortBy,
+    Column,
+    Row,
 } from 'react-table';
 import SwapVertIcon from '@material-ui/icons/SwapVert';
 import styles from './index.module.scss';
 
-const Table = ({ data, columns }) => {
-    const defaultColumn = () => ({
+type IProps<T extends object> = {
+    data: T[];
+    columns: Column<T>[];
+}
+
+const Table = <T extends object>({ data, columns }: IProps<T>) => {
+    const defaultColumn = {
         minWidth: 30,
         width: 100,
         maxWidth: 200,
-    });
+    };
 
     const {
         getTableProps, getTableBodyProps, headerGroups, rows, prepareRow,
-    } = useTable(
+    } = useTable<T>(
         {
             columns,
             data,
@@ -77,7 +84,7 @@ const Table = ({ data, columns }) => {
                     ))}
                 </div>
                 <div {...getTableBodyProps()} className={styles.tbody}>
-                    {rows.map((row) => {
+                    {rows.map((row: Row<T>) => {
                         prepareRow(row);
                         return (
                             <div {...row.getRowProps()} className={styles.tr}>

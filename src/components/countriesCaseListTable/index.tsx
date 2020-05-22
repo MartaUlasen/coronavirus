@@ -12,12 +12,12 @@ const { tdAlignRight, tdAlignLeft } = styles;
 
 type IProps = ICountriesCaseListState & ResolveThunks<Pick<typeof thunks, 'fetchCountriesCaseList'>>;
 type IFormatedNumberProps = {
-    value: number,
-    className: string,
+    value: number;
+    className: string;
 };
 type ICountryNameProps = {
-    value: string,
-    className: string,
+    value: string;
+    className: string;
 };
 
 const FormattedNumber: FC<IFormatedNumberProps> = (
@@ -32,7 +32,6 @@ const columns: Column<ICountry>[] = [
         Header: 'Country',
         accessor: 'country',
         Cell: ({ value }) => <CountryName value={value} className={tdAlignLeft} />,
-        // className: tdAlignLeft,
     },
     {
         Header: 'Cases',
@@ -94,7 +93,7 @@ const CountriesCaseListTable: FC<IProps> = ({
     return (
         <div className={styles.caseList}>
             {isLoading && 'LOADING'}
-            {data && <Table data={data} columns={columns} />}
+            {data && <Table<ICountry> data={data} columns={columns} />}
             {error}
         </div>
     );
