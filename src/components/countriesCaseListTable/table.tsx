@@ -36,10 +36,11 @@ const Table = <T extends object>({ data, columns }: IProps<T>) => {
     return (
         <div className={styles.tableWrapper}>
             <div {...getTableProps()} className={styles.table}>
-                <div>
+                <div className={styles.thead}>
                     {headerGroups.map((headerGroup) => (
                         <div
                             {...headerGroup.getHeaderGroupProps({
+                                style: { paddingRight: '10px' },
                             })}
                             className={styles.tr}
                         >

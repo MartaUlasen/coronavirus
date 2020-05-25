@@ -26,9 +26,14 @@
     border-spacing: 0;
 }
 
+.table-wrapper {
+    display: block;
+    margin: 0 auto 1rem;
+    overflow: auto;
+}
+
 .thead {
-    overflow-x: auto;
-    overflow-y: auto;
+    background-color: #6d78ac;
 }
 
 .tbody {
