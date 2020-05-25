@@ -3,7 +3,7 @@ import { connect, ResolveThunks } from 'react-redux';
 import { thunks, ITotalCasesState } from 'store/totalCases';
 import { IRootState } from 'store';
 import TotalCases from 'components/totalCases';
-
+import Chart from 'components/charts';
 import CountriesCaseListTable from 'components/countriesCaseListTable';
 import styles from './index.module.scss';
 
@@ -26,6 +26,7 @@ const Home: FC<IProps> = ({
                 ? (
                     <>
                         <TotalCases />
+                        <Chart />
                         <CountriesCaseListTable />
                     </>
                 )
