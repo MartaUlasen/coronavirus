@@ -17,6 +17,7 @@ export interface ICountry {
     deathsPerOneMillion: number;
     tests: number;
     testsPerOneMillion: number;
+    population: number;
 }
 
 export type ICountriesCaseListState = {
