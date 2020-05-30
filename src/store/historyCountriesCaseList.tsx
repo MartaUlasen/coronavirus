@@ -51,7 +51,7 @@ export const { actions, reducer } = historyCountriesCaseListModule;
 
 const fetchHistoryCountriesCaseList = () => (dispatch: IRootDispatch) => {
     dispatch(actions.requestHistoryCountriesCaseList());
-    return httpService.get('historical/Japan,Chile?lastdays=30')
+    return httpService.get('historical/Belarus,Sweden?lastdays=all')
         .then((response) => {
             dispatch(actions.requestHistoryCountriesCaseListSuccess(response.data));
         })

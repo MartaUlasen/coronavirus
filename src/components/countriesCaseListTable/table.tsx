@@ -37,13 +37,19 @@ const Table = <T extends object>({ data, columns }: IProps<T>) => {
         <div className={styles.tableWrapper}>
             <div {...getTableProps()} className={styles.table}>
                 <div className={styles.thead}>
-                    {headerGroups.map((headerGroup) => (
+                    {headerGroups.map((headerGroup, index) => (
                         <div
                             {...headerGroup.getHeaderGroupProps({
                                 style: { paddingRight: '10px' },
                             })}
                             className={styles.tr}
                         >
+                            <div
+                                role='columnheader'
+                                className={styles.thRowNumber}
+                            >
+                                <span>{headerGroups.length - 1 === index ? '№' : ' '}</span>
+                            </div>
                             {headerGroup.headers.map((column) => (
                                 <div
                                     {...column.getHeaderProps(column.getSortByToggleProps())}
@@ -85,10 +91,18 @@ const Table = <T extends object>({ data, columns }: IProps<T>) => {
                     ))}
                 </div>
                 <div {...getTableBodyProps()} className={styles.tbody}>
-                    {rows.map((row: Row<T>) => {
+                    {rows.map((row: Row<T>, index) => {
                         prepareRow(row);
                         return (
                             <div {...row.getRowProps()} className={styles.tr}>
+                                <div
+                                    role='cell'
+                                    className={styles.tdRowNumber}
+                                >
+                                    <div className={styles.tdAligncenter}>
+                                        {index + 1}
+                                    </div>
+                                </div>
                                 {row.cells.map((cell) => (
                                     <div
                                         {...cell.getCellProps()}
