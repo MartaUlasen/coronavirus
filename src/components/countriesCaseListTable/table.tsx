@@ -6,6 +6,8 @@ import {
     Column,
     Row,
 } from 'react-table';
+import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
+import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
 import SwapVertIcon from '@material-ui/icons/SwapVert';
 import styles from './index.module.scss';
 
@@ -61,14 +63,14 @@ const Table = <T extends object>({ data, columns }: IProps<T>) => {
                                             ? column.isSorted
                                                 ? column.isSortedDesc
                                                     ? (
-                                                        <SwapVertIcon
+                                                        <ArrowDropDownIcon
                                                             style={{
                                                                 fontSize: 'medium',
                                                             }}
                                                         />
                                                     )
                                                     : (
-                                                        <SwapVertIcon
+                                                        <ArrowDropUpIcon
                                                             style={{
                                                                 fontSize: 'medium',
                                                             }}

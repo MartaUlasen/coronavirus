@@ -1,3 +1,5 @@
+$head-color: #6d78ac;
+
 .case-list {
     text-align: center;
 }
@@ -33,7 +35,7 @@
 }
 
 .thead {
-    background-color: #6d78ac;
+    background-color: $head-color;
 }
 
 .tbody {
@@ -51,7 +53,7 @@
     }
     
     &::-webkit-scrollbar-thumb {
-        background-color: #6d78ac;
+        background-color: $head-color;
         border: 1px solid #fff;
         border-radius: 8px; 
     }
@@ -87,7 +89,7 @@
     padding: 0.5em;
     color: #fff;
     text-align: center;
-    background: #6d78ac;
+    background: $head-color;
 
     &:last-child {
         border-right: 1px solid transparent;
@@ -126,4 +128,9 @@
     width: 60px;
     height: auto;
     padding: 0.5em;
+}
+
+.population {
+    font-weight: 600;
+    font-size: 12px;
 }

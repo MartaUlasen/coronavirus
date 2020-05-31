@@ -17,6 +17,7 @@ type IFormatedNumberProps = {
 };
 type ICountryNameProps = {
     value: string;
+    population: number;
     className: string;
 };
 
@@ -25,15 +26,37 @@ const FormattedNumber: FC<IFormatedNumberProps> = (
 ) => <div className={className}>{formatNumber(value)}</div>;
 
 const CountryName: FC<ICountryNameProps> = (
-    { value, className },
-) => <div className={className}>{value}</div>;
+    { value, population, className },
+) => (
+    <div className={className}>
+        <span>{value}</span>
+        <span className={styles.population}>
+            {' '}
+            (
+            {
+                formatNumber(population)
+            }
+            )
+        </span>
+    </div>
+);
 
 const columns: Column<ICountry>[] = [
     {
         id: 'country',
-        Header: 'Country',
+        Header: 'Country (Poplulation)',
         accessor: 'country',
-        Cell: ({ value }) => <CountryName value={value} className={tdAlignLeft} />,
+        Cell: ({
+            value,
+            row: { original: { population } },
+        }: CellProps<ICountry>) => (
+            <CountryName
+                value={value}
+                population={population}
+                className={tdAlignLeft}
+            />
+        ),
+        sortType: 'basic',
     },
     {
         id: 'cases',
@@ -57,6 +80,7 @@ const columns: Column<ICountry>[] = [
                 accessor: 'casesPerOneMillion',
                 Cell: ({ value }) => <FormattedNumber value={value} className={tdAlignRight} />,
             },
+            /*
             {
                 id: 'cases.percent',
                 Header: '% of cases from the population',
@@ -81,7 +105,7 @@ const columns: Column<ICountry>[] = [
                     return <div className={tdAlignRight}>N/A</div>;
                 },
                 sortType: 'basic',
-            },
+            }, */
         ],
     },
     {
