@@ -6,9 +6,7 @@ import {
     Column,
     Row,
 } from 'react-table';
-import ArrowDropDownIcon from '@material-ui/icons/ArrowDropDown';
-import ArrowDropUpIcon from '@material-ui/icons/ArrowDropUp';
-import SwapVertIcon from '@material-ui/icons/SwapVert';
+import { Code, ChevronUp, ChevronDown } from 'react-feather';
 import styles from './index.module.scss';
 
 type IProps<T extends object> = {
@@ -63,25 +61,13 @@ const Table = <T extends object>({ data, columns }: IProps<T>) => {
                                             ? column.isSorted
                                                 ? column.isSortedDesc
                                                     ? (
-                                                        <ArrowDropDownIcon
-                                                            style={{
-                                                                fontSize: 'medium',
-                                                            }}
-                                                        />
+                                                        <ChevronDown color='white' size={12} />
                                                     )
                                                     : (
-                                                        <ArrowDropUpIcon
-                                                            style={{
-                                                                fontSize: 'medium',
-                                                            }}
-                                                        />
+                                                        <ChevronUp color='white' size={12} />
                                                     )
                                                 : (
-                                                    <SwapVertIcon
-                                                        style={{
-                                                            fontSize: 'small',
-                                                        }}
-                                                    />
+                                                    <Code color='white' size={12} style={{ transform: 'rotate(90deg)' }} />
                                                 )
                                             : ''}
 
