@@ -9,7 +9,7 @@ type timeline = {
     recovered: object;
 }
 
-export interface IHistoryCountry {
+export interface IHistoryOfCountry {
     country: string;
     provinces: [];
     timeline: timeline;
@@ -17,13 +17,15 @@ export interface IHistoryCountry {
 
 export type IHistoryCountriesCaseListState = {
     isLoading: boolean;
-    data?: IHistoryCountry[];
+    data?: IHistoryOfCountry[];
+    selectedCountries: string[];
     error?: string;
 };
 
 export const initialState: IHistoryCountriesCaseListState = {
     isLoading: false,
     data: undefined,
+    selectedCountries: ['USA', 'Brazil', 'Russia', 'Spain', 'UK'],
     error: undefined,
 };
 
@@ -35,7 +37,7 @@ export const historyCountriesCaseListModule = createSlice({
             state.isLoading = true;
         },
         requestHistoryCountriesCaseListSuccess: (
-            state, action: PayloadAction<IHistoryCountry[]>,
+            state, action: PayloadAction<IHistoryOfCountry[]>,
         ) => {
             state.isLoading = false;
             state.data = action.payload;
@@ -44,18 +46,32 @@ export const historyCountriesCaseListModule = createSlice({
             state.isLoading = false;
             state.error = action.payload;
         },
+        selectCountries: (state, action: PayloadAction<string[]>) => {
+            state.selectedCountries = action.payload;
+        },
     },
 });
 
 export const { actions, reducer } = historyCountriesCaseListModule;
 
-const fetchHistoryCountriesCaseList = () => (dispatch: IRootDispatch) => {
+const fetchHistoryCountriesCaseList = (
+    selectedCountries: string,
+) => (dispatch: IRootDispatch) => {
     dispatch(actions.requestHistoryCountriesCaseList());
-    return httpService.get('historical/Belarus,Sweden?lastdays=all')
-        .then((response) => {
-            dispatch(actions.requestHistoryCountriesCaseListSuccess(response.data));
-        })
-        .catch((error) => dispatch(actions.requestHistoryCountriesCaseListError(error.toString())));
+
+    const url = `historical/${selectedCountries}?lastdays=all`;
+    if (selectedCountries.length !== 0) {
+        return httpService.get(url)
+            .then((response) => {
+                const dataInArray = Array.isArray(response.data) ? response.data : [response.data];
+                dispatch(actions.requestHistoryCountriesCaseListSuccess(dataInArray));
+            })
+            .catch((
+                error,
+            ) => dispatch(actions.requestHistoryCountriesCaseListError(error.toString())));
+    }
+
+    return null;
 };
 
 export const thunks = {

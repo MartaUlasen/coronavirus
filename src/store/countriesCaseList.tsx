@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, createSelector, PayloadAction } from '@reduxjs/toolkit';
 import httpService from 'services';
 import { IRootDispatch } from './index';
 
@@ -63,6 +63,15 @@ const fetchCountriesCaseList = () => (dispatch: IRootDispatch) => {
 
 export const thunks = {
     fetchCountriesCaseList,
+};
+
+const listCountries = createSelector(
+    (state: ICountriesCaseListState) => state.data,
+    (data) => data?.map((item) => item.country),
+);
+
+export const selectors = {
+    listCountries,
 };
 
 export { actions };
