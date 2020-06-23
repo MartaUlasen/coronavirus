@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { selectors } from 'store/countriesCaseList';
 import { actions } from 'store/historyCountriesCaseList';
 import { IRootState } from 'store';
-import ReactSelect, { ValueType, OptionsType } from 'react-select';
+import ReactSelect, { OptionsType } from 'react-select';
 
 export type ICountryListItem = {
     value: string;

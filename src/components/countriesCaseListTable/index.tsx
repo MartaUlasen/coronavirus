@@ -4,6 +4,7 @@ import { thunks, ICountriesCaseListState, ICountry } from 'store/countriesCaseLi
 import { IRootState } from 'store';
 import { formatNumber } from 'utils';
 import { Column, CellProps } from 'react-table';
+import Loader from 'components/loader';
 import Table from './table';
 import styles from './index.module.scss';
 
@@ -80,32 +81,6 @@ const columns: Column<ICountry>[] = [
                 accessor: 'casesPerOneMillion',
                 Cell: ({ value }) => <FormattedNumber value={value} className={tdAlignRight} />,
             },
-            /*
-            {
-                id: 'cases.percent',
-                Header: '% of cases from the population',
-                accessor: (row) => {
-                    const { cases, population } = row;
-                    const percent = (cases / population) * 100;
-
-                    if (population) {
-                        return percent;
-                    }
-
-                    return 0;
-                },
-
-                Cell: ({ row: { original } }: CellProps<ICountry>) => {
-                    const { cases, population } = original;
-                    const percent = ((cases / population) * 100).toFixed(3);
-                    if (population) {
-                        return <div className={tdAlignRight}>{percent}</div>;
-                    }
-
-                    return <div className={tdAlignRight}>N/A</div>;
-                },
-                sortType: 'basic',
-            }, */
         ],
     },
     {
@@ -152,7 +127,7 @@ const CountriesCaseListTable: FC<IProps> = ({
 
     return (
         <div className={styles.caseList}>
-            {isLoading && 'LOADING'}
+            {isLoading && <Loader />}
             {data && <Table<ICountry> data={data} columns={columns} />}
             {error}
         </div>

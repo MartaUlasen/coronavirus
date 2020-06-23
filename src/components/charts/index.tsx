@@ -1,10 +1,11 @@
-import React, { FC, useEffect } from 'react';
+import React, { FC, useEffect, useCallback } from 'react';
 import { connect, ResolveThunks } from 'react-redux';
 import { thunks, selectors } from 'store/historyCountriesCaseList';
 import { IRootState } from 'store';
 import Plot from 'react-plotly.js';
 import { PlotData } from 'plotly.js';
 import Select from 'components/select';
+import Loader from 'components/loader';
 
 type IProps = {
     isLoading: boolean;
@@ -20,14 +21,28 @@ const Chart: FC<IProps> = ({
     selectedCountries,
     fetchHistoryCountriesCaseList,
 }) => {
-    const selectedCountriesInString = selectedCountries.join();
+    const contriesFromState = data?.map((item) => item.name);
+    const countriesForQuery = selectedCountries.filter(
+        (country) => !contriesFromState?.includes(country),
+    ).join();
+
+    const fetchHistoryCountriesCaseListIfNeeded = useCallback(
+        () => {
+            if (countriesForQuery.length) {
+                fetchHistoryCountriesCaseList(countriesForQuery);
+            }
+            return null;
+        },
+        [fetchHistoryCountriesCaseList, countriesForQuery],
+    );
+
     useEffect(() => {
-        fetchHistoryCountriesCaseList(selectedCountriesInString);
-    }, [fetchHistoryCountriesCaseList, selectedCountriesInString]);
+        fetchHistoryCountriesCaseListIfNeeded();
+    }, [fetchHistoryCountriesCaseListIfNeeded]);
 
     return (
         <>
-            {isLoading ? 'LOADING' : null}
+            { isLoading && <Loader /> }
             {data
                 ? (
                     <>
@@ -40,7 +55,7 @@ const Chart: FC<IProps> = ({
                             }}
                             data={data ?? []}
                             layout={{
-                                title: 'Historical data', autosize: true,
+                                title: 'Total confirmed COVID-19 cases by selected countries', autosize: true,
                             }}
                         />
                     </>

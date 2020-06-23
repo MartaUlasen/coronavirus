@@ -40,7 +40,7 @@ export const historyCountriesCaseListModule = createSlice({
             state, action: PayloadAction<IHistoryOfCountry[]>,
         ) => {
             state.isLoading = false;
-            state.data = action.payload;
+            state.data = state.data ? [...state.data, ...action.payload] : action.payload;
         },
         requestHistoryCountriesCaseListError: (state, action: PayloadAction<string>) => {
             state.isLoading = false;
@@ -79,7 +79,8 @@ export const thunks = {
 };
 
 const selectScatterData = createSelector(
-    (state: IHistoryCountriesCaseListState) => state.data,
+    (state: IHistoryCountriesCaseListState) => state.data?.filter(
+        (item) => state.selectedCountries.includes(item.country)),
     (data) => {
         const scatter: Partial<PlotData>[] | undefined = data?.map((item) => {
             const { country, timeline: { cases } } = item;
@@ -93,7 +94,6 @@ const selectScatterData = createSelector(
                 name: country,
             };
         });
-
         return scatter;
     },
 );
